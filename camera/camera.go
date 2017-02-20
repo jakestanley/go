@@ -1,11 +1,13 @@
-package camera;
+package camera
 
 import "image"
 import "github.com/hajimehoshi/ebiten"
 
 // default camera speed values
-const PAN_SPEED = 1.4;
-const INC_SPEED = 0.125;
+const (
+    PAN_SPEED = 1.4
+    INC_SPEED = 0.125
+)
 
 type Camera struct {
     pX float64;
@@ -18,7 +20,7 @@ func NewCameraV(v *Velocity) *Camera {
     return &c;
 }
 
-func NewCamera() *Camera {
+func DefaultCamera() *Camera {
     v := NewVelocity(PAN_SPEED, INC_SPEED); // velocity
     c := Camera{0, 0, v}; // TODO remove magic values
     return &c;

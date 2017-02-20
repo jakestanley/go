@@ -12,6 +12,8 @@ type Tile struct {
     // *ebiten.Image texture 
 }
 
+// TODO "3D" tilemap
+
 type Region struct {
     x int32
     y int32 

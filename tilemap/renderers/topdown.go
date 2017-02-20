@@ -1,4 +1,4 @@
-package tilemap
+package renderers
 
 import (
     // "fmt"
@@ -9,8 +9,6 @@ import (
     common "github.com/madstanners/go/common"
     gg_cam "github.com/madstanners/go/camera"
 )
-
-
 
 const DEFAULT_TILE_SIZE = 16;
 
