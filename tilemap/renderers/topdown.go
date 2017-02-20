@@ -6,59 +6,18 @@ import (
     "time"
     "math/rand"
     "github.com/hajimehoshi/ebiten"
-    common "github.com/madstanners/go/common"
-    gg_cam "github.com/madstanners/go/camera"
+    common      "github.com/madstanners/go/common"
+    gg_cam      "github.com/madstanners/go/camera"
+    gg_tiles    "github.com/madstanners/go/tilemap"
 )
-
-const DEFAULT_TILE_SIZE = 16;
 
 var ts TileSheet;
 var tileArranger *TileArranger;
-
-// creates a rect based on tile size and tile coordinates, e.g 1,1, should return the rectangle 
-// 16, 16, 31, 31 // TODO test
-func NewTileCustom(x, y, size int) image.Rectangle {
-    x0 := x * size;
-    y0 := y * size;
-    x1 := x0 + size;
-    y1 := y0 + size;
-    r := image.Rect(x0, y0, x1, y1);
-    return r;
-}
 
 // calls NewTile(x, y, size) with the DEFAULT_TILE_SIZE const
 func NewTile(x, y int) image.Rectangle {
     r := NewTileCustom(x, y, DEFAULT_TILE_SIZE);
     return r;
-}
-
-// using ebiten ImageParts helps to reduce draw calls
-// TODO make these dynamic. they're pretty static now... can't remove tiles easily
-type TileSheet struct {
-    sheet *ebiten.Image;
-    textureRects map[string]image.Rectangle; // refs references this
-    count int;
-    textureRefs []string;
-    textureRectsArray []image.Rectangle;
-}
-
-func NewTileSheet(path string) TileSheet {
-    ts := TileSheet{};
-    sheet, err := common.LoadImage(path);
-    ts.textureRects = make(map[string]image.Rectangle);
-    if(err != nil){
-        // TODO do something
-    }
-    ts.sheet = sheet;
-    return ts;
-}
-
-func (ts *TileSheet) Add(ref string, x, y int) { // TODO return error here
-    rect := NewTile(x, y);
-    ts.textureRects[ref] = rect; // image.Rect(0, 0, 15, 15);
-    ts.textureRefs = append(ts.textureRefs, ref);
-    ts.textureRectsArray = append(ts.textureRectsArray, rect);
-    ts.count = ts.count + 1;
 }
 
 // tile arranger
@@ -157,7 +116,7 @@ func DrawTiles(screen *ebiten.Image, camera *gg_cam.Camera) { // TODO handle mul
  *
  * @return     ebiten image with the map rendered onto it
  */
-func RenderMap(img *ebiten.Image, m *Map) *ebiten.Image {
+func RenderMap(img *ebiten.Image, m *gg_tiles.Map) *ebiten.Image {
     // TODO metadata, e.g offset, other shit
     return nil
 }
