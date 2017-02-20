@@ -6,8 +6,8 @@ import (
     "time"
     "math/rand"
     "github.com/hajimehoshi/ebiten"
-    common "github.com/madstanners/common"
-    gg_cam "github.com/madstanners/camera"
+    common "github.com/madstanners/go/common"
+    gg_cam "github.com/madstanners/go/camera"
 )
 
 
