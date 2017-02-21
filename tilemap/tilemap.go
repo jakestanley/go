@@ -1,18 +1,10 @@
 package tilemap
 
 const (
-    tileWidth   = 16
-    tileHeight  = 16
+    DEFAULT_MAP_SX = 32
+    DEFAULT_MAP_SY = 32
+    DEFAULT_MAP_SF = 16
 )
-
-type Tile struct {
-    solid bool
-    texture string // path. could also be an interface.
-    // map generation will be renderer agnostic
-    // *ebiten.Image texture 
-}
-
-// TODO "3D" tilemap
 
 type Region struct {
     x int32
@@ -28,13 +20,21 @@ type Map struct {
     regions []*Region   // stepping on a region should trigger an action, e.g entering a building
 }
 
+type ThreeDimensionalMap struct {
+    sizeX int
+    sizeY int
+    floors int
+    tiles [][][]*Tile
+    regions []*Region
+}
+
 func NewMap(sizeX int, sizeY int) *Map {
     var tiles       [][]*Tile
     var regions     []*Region
 
     for x := 0; x < sizeX; x++ {
         for y := 0; y < sizeY; y++ {
-            tiles[x][y] = &Tile{ false, "../_resources/tarmac.png" }
+            tiles[x][y] = GetVoidTile();
         }
     }
 
@@ -42,6 +42,22 @@ func NewMap(sizeX int, sizeY int) *Map {
     return &m
 }
 
-func generateBasicMap() *Map {
-    return NewMap(32, 32)
+func Default3DMap() *ThreeDimensionalMap {
+    return New3DMap(DEFAULT_MAP_SX, DEFAULT_MAP_SY, DEFAULT_MAP_SF);
+}
+
+func New3DMap(sizeX, sizeY, floors int) *ThreeDimensionalMap {
+    var tiles       [floors][sizeX][sizeY]*Tile
+    var regions     []*Region
+
+    for f := 0; f < floors; f++ {
+        for x := 0; x < sizeX; x++ {
+            for y := 0; y < sizeY; y++ {
+                tiles[f][x][y] = GetVoidTile();
+            }
+        }
+    }
+
+    m := &ThreeDimensionalMap{sizeX, sizeY, floors, tiles, regions};
+    return m;
 }

@@ -6,7 +6,7 @@ import (
     "time"
     "math/rand"
     "github.com/hajimehoshi/ebiten"
-    common      "github.com/madstanners/go/common"
+    // common      "github.com/madstanners/go/common"
     gg_cam      "github.com/madstanners/go/camera"
     gg_tiles    "github.com/madstanners/go/tilemap"
 )
@@ -79,7 +79,7 @@ func (ta *TileArranger) Add(texture string, xy image.Point) {
 
 func InitTiles() {
     // load ground textures
-    ts = NewTileSheet("_resources/tiles.png");
+    // ts = NewTileSheet("_resources/tiles.png");
 
     // create texture rectangles
     ts.Add("tx1", 0, 0); // image.Rect(0, 0, 15, 15);

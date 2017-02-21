@@ -1,8 +1,14 @@
 package renderers
 
-"github.com/hajimehoshi/ebiten"
+import (
+    "image"
+    "github.com/hajimehoshi/ebiten"
+    "github.com/madstanners/go/common"
+)
 
-const DEFAULT_TILE_SIZE = 16;
+const (
+    DEFAULT_TILE_SIZE = 16;
+)
 
 // using ebiten ImageParts helps to reduce draw calls
 // TODO make these dynamic. they're pretty static now... can't remove tiles easily
@@ -56,9 +62,7 @@ func DefaultTileRenderConfig() *TileRenderConfig {
     return &TileRenderConfig{DEFAULT_TILE_SIZE};
 }
 
-func LoadTileSheet(imgPath string)
-
-func LoadTileSheet(imgPath string, tileSize int) {
+func LoadTileSheet(imgPath string, tileConfig *TileRenderConfig) {
 
 
 
