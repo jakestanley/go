@@ -20,7 +20,7 @@ type Map struct {
     regions []*Region   // stepping on a region should trigger an action, e.g entering a building
 }
 
-type ThreeDimensionalMap struct {
+type ThreeDimensionalMap struct { // TODO polymorphism
     sizeX int
     sizeY int
     floors int
@@ -42,13 +42,35 @@ func NewMap(sizeX int, sizeY int) *Map {
     return &m
 }
 
+func make2dArray(x, y int) [][]*Tile {
+    arr := make([][]*Tile, x);
+    for xi := 0; xi < x; xi++ {
+        arr[xi] = make([]*Tile, y);
+    }
+    return arr;
+}
+
+func make3dArray(x, y, z int) [][][]*Tile {
+    arr := make([][][]*Tile, x);
+    for xi := 0; xi < x; xi++ {
+        arr[xi] = make([][]*Tile, y);
+        for yi := 0; yi < y; yi++ {
+            arr[xi][yi] = make([]*Tile, z);
+        }
+    }
+    return arr;
+}
+
 func Default3DMap() *ThreeDimensionalMap {
     return New3DMap(DEFAULT_MAP_SX, DEFAULT_MAP_SY, DEFAULT_MAP_SF);
 }
 
 func New3DMap(sizeX, sizeY, floors int) *ThreeDimensionalMap {
-    var tiles       [floors][sizeX][sizeY]*Tile
+    var tiles       [][][]*Tile
     var regions     []*Region
+
+    tiles = make3dArray(floors, sizeX, sizeY);
+
 
     for f := 0; f < floors; f++ {
         for x := 0; x < sizeX; x++ {
